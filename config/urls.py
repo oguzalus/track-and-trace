@@ -16,8 +16,11 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from shipments.rest.router import urls as shipment_urls
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path('v1/', include(shipment_urls)),
 ]
