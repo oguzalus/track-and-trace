@@ -21,10 +21,15 @@ class ArticleShipmentItemSerializer(serializers.ModelSerializer):
 
 class ShipmentSerializer(serializers.ModelSerializer):
     articles = ArticleShipmentItemSerializer(many=True, source='articleshipmentitem_set', read_only=True)
+    weather = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Shipment
         fields = [
             'id', 'tracking_number', 'carrier', 'sender_address',
-            'receiver_address', 'status', 'articles',
+            'receiver_address', 'status', 'articles', 'weather',
         ]
+    
+    def get_weather(self, obj):
+        location = obj.receiver_address.split(',')[3]
+        return get_client().get_weather(obj.receiver_address)
