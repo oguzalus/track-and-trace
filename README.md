@@ -1,6 +1,9 @@
 # Track and Trace
 
-## Setup 
+
+## Run Locally
+
+### Setup 
 
 1. Setup PostgreSQL and create "track_and_trace_db" database.
 2. Setup Redis.
@@ -19,13 +22,17 @@
 [Optional] Run `python manage.py test`
 
 
-## Run
+### Run
 Run
 `python manage.py runserver`
 
 
+## Run by Docker
+
+# TODO
+
+
 ## TODO's:
- ** Add REST API tests
-1. Create Dockerfile
-2. Implement a proper Authentication (JWT)
-3. more
+1. Implement a proper Authentication (JWT)
+2. Write doc for Docker
+2. more
