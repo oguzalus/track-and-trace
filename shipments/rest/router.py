@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from shipments.views import ArticleViewSet, ArticleShipmentItemViewSet, ShipmentViewSet
+from .views import ArticleViewSet, ArticleShipmentItemViewSet, ShipmentViewSet
 
 router = DefaultRouter()
 

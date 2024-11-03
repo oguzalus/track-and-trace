@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 
 from shipments.models import Article, Shipment, ArticleShipmentItem
-from shipments.serializers import ArticleSerializer, ShipmentSerializer, ArticleShipmentItemSerializer
+from .serializers import ArticleSerializer, ShipmentSerializer, ArticleShipmentItemSerializer
 
 from rest_framework.views import APIView
 
