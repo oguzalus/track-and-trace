@@ -2,7 +2,6 @@
 import responses
 from django.core.cache import cache
 from django.test import TestCase, override_settings
-from rest_framework.test import APITestCase
 
 from shipments.weather_integration import get_client
 from shipments.models import Shipment, Article, ArticleShipmentItem

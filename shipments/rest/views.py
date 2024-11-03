@@ -29,11 +29,11 @@ class ShipmentViewSet(viewsets.ModelViewSet):
         detail=False,
         url_path=r'(?P<carrier>[^/.]+)/(?P<tracking_number>[^/.]+)',
         url_name='get_shipment',
-        permission_classes=[permissions.AllowAny]
+        permission_classes=[permissions.AllowAny],
     )
     def get_shipment(self, request, carrier, tracking_number):
         """ Get a single shipment by tracking number and carrier, without authentication. """
         shipment = get_object_or_404(self.get_queryset(), tracking_number=tracking_number, carrier=carrier)
         serializer = self.get_serializer(shipment)
         return Response(serializer.data)
-    
+

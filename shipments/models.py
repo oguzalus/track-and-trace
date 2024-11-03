@@ -1,5 +1,7 @@
 from django.db import models
 
+from .validators import validate_comma_separated_address
+
 class Article(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -13,8 +15,8 @@ class Shipment(models.Model):
     articles = models.ManyToManyField(Article, through='ArticleShipmentItem', related_name='shipments')
     tracking_number = models.CharField(max_length=100)
     carrier = models.CharField(max_length=32)
-    sender_address = models.CharField(max_length=255)
-    receiver_address = models.CharField(max_length=255)
+    sender_address = models.CharField(max_length=255, validators=[validate_comma_separated_address])
+    receiver_address = models.CharField(max_length=255, validators=[validate_comma_separated_address])
 
     class ShipmentStatus(models.TextChoices):
         IN_TRANSIT = 'IN_TRANSIT', 'in-transit'

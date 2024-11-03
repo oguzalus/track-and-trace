@@ -31,5 +31,7 @@ class ShipmentSerializer(serializers.ModelSerializer):
         ]
     
     def get_weather(self, obj):
-        location = obj.receiver_address.split(',')[3]
+        reciever_address_sections = obj.receiver_address.split(',')
+        if len(reciever_address_sections) != 3:
+            return 'Receiver address is not valid! Valid address format: "<Street>, <Postal_Code City>, <Country>"'
         return get_client().get_weather(obj.receiver_address)
