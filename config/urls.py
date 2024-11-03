@@ -17,10 +17,20 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
 from shipments.rest.router import urls as shipment_urls
 
 
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls')),
     path("admin/", admin.site.urls),
+
+    # V1 API
     path('v1/', include(shipment_urls)),
+    # OpenAPI schema
+    path('v1/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Swagger and Redoc UI
+    path('v1/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('v1/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
