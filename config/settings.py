@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-k_t*-hzk#k6&)6qyyvbp=b(m$*k#vb!4x)ej@uo$p+gp&)whkr"
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-l&zgd*f&5-a#u-^2sp&34o##vx^m=s5xklxlo^$n%zuxsx8297')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
     'rest_framework',
     'django_filters',
     'drf_spectacular',
@@ -55,6 +56,16 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379')
+    }
+}
+
+# Set WEATHER_API_KEY env var otherwise DummyWeatherClient will be used!
+WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY', None)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -90,10 +101,19 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': "django.db.backends.postgresql_psycopg2",
+        'NAME': 'track_and_trace_db',
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
     }
 }
 
