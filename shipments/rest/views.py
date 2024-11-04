@@ -20,7 +20,7 @@ class ArticleShipmentItemViewSet(viewsets.ModelViewSet):
 
 
 class ShipmentViewSet(viewsets.ModelViewSet):
-    queryset = Shipment.objects.prefetch_related('articles')
+    queryset = Shipment.objects.prefetch_related('articleshipmentitem_set')
     serializer_class = ShipmentSerializer
 
     filterset_fields = ['status', 'tracking_number', 'carrier']
